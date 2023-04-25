@@ -1,0 +1,213 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    cursor: url(photos/cursor.ico), auto;
+}
+
+body {
+    background-image: url("photos/wood.jpg");
+    direction: ltr;
+}
+
+input {
+    cursor: text;
+}
+
+#title {
+    color: gold;
+    background-color: #4a492063;
+    text-align: center;
+    border-radius: 8%;
+    margin-left: 35%;
+    margin-right: 35%;
+}
+
+#board {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    width: 100vw;
+    height: 100vh;
+}
+
+.cards {
+    position: relative;
+    width: 100px;
+    height: 100px;
+}
+
+.cards:hover {
+    transform: rotate(8deg);
+    transition: transform .5s;
+}
+
+.face-card, .card-selected, .card-solved, .back-card, .hide-card, .show-card{
+    border-radius: 5%;
+    height: 100px;
+    width: 100px;
+}
+
+.back-card{
+    position: absolute;
+}
+
+.hide-card {
+    position: absolute;
+    opacity: 0;
+    z-index: 0;
+    transform: rotateY(0deg);
+    transition: transform 0.5s;
+}
+
+.show-card {
+    position: absolute;
+    opacity: 1;
+    z-index: 1;
+    transform: rotateY(180deg);
+    transition: transform 0.5s;
+}
+
+/* setting */
+
+#setting-board {
+    text-align: center;
+    margin-top: 3%;
+}
+
+#cards-amount {
+    margin-left: 10px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 50px;
+}
+
+#cards-amount-words {
+    font-weight: bold;
+    background-color: rgba(245, 245, 220, 0.454);
+    border-radius: 3%;
+}
+
+#add-player {
+    margin-right: 10%;
+    width: 20px;
+    cursor: copy;
+}
+
+#add-player:hover {
+    border-radius: 60%;
+}
+
+#players-board {
+    border: 1px solid #ccc;
+    padding: 10px;
+    padding-right: 66%;
+    max-width: 500px;
+    margin-left: 10%;
+    margin-right: 30%;
+    margin-top: 1%;
+}
+
+.player-template {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 3%;
+    cursor: pointer;
+    background-color: #ffffff3c;
+    flex-wrap: wrap;
+    width: fit-content;
+}
+
+.player-template:hover {
+    background-color: rgba(255, 217, 0, 0.062);
+}
+
+#start-button {
+    margin-top: 10%;
+    box-shadow: 0 9px #999;
+    width: 15%;
+    cursor: pointer;
+}
+
+#error-message {
+    color: red;
+    background-color: #ded2be6b;
+}
+
+/* clock */
+
+#clock {
+    font-size: 36px;
+    font-weight: bold;
+    text-align: left;
+    color: rgba(0, 0, 0, 0.406);
+    background-color: rgba(249, 249, 0, 0.226);
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#clock:hover {
+    color: black;
+    background-color: white;
+}
+
+
+/* instructions */
+
+#exclamation-mark {
+    width: 3%;
+    position: absolute;
+    top: 5;
+    right: 5;
+}
+
+#exclamation-mark:hover {
+    transform: rotate(360deg);
+    transition: transform 1s;
+    cursor: pointer;
+}
+
+#overlay {
+    position: fixed;
+    display: none;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+}
+
+#popup {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    text-align: center;
+}
+
+#popup h2 {
+    margin-top: 0;
+    margin-bottom: 3px;
+}
+
+#popup button {
+    background-color: #1e90ff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+#popup button:hover {
+    background-color: #0066cc;
+}
