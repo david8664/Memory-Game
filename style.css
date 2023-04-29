@@ -43,13 +43,18 @@ input {
     transition: transform .5s;
 }
 
-.face-card, .card-selected, .card-solved, .back-card, .hide-card, .show-card{
+.face-card,
+.card-selected,
+.card-solved,
+.back-card,
+.hide-card,
+.show-card {
     border-radius: 5%;
     height: 100px;
     width: 100px;
 }
 
-.back-card{
+.back-card {
     position: absolute;
 }
 
@@ -190,24 +195,84 @@ input {
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    text-align: center;
 }
 
 #popup h2 {
     margin-top: 0;
-    margin-bottom: 3px;
+    margin-bottom: 2%;
+    text-align: center;
 }
 
 #popup button {
     background-color: #1e90ff;
     color: #fff;
     padding: 10px 20px;
-    border: none;
     border-radius: 5px;
     cursor: pointer;
     margin-top: 10px;
+    margin-left: 43%;
 }
 
 #popup button:hover {
+    background-color: #0066cc;
+}
+
+
+/* player turn */
+
+#turn-player-container {
+    position: absolute;
+    top: 0;
+    left: 17%;
+    width: 15%;
+    max-height: 15%;
+    background-color: white;
+    text-align: center;
+    border-radius: 3%;
+}
+
+#turn-player-container.show {
+    display: block;
+}
+
+#all-body {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.632);
+    z-index: 1;
+}
+#finish {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+    height: 50%;
+    z-index: 100;
+    background-color: white;
+    padding: 20px;
+    text-align: center;
+    border-radius: 5%;
+}
+
+#finish > button{
+    margin-top: 10%;
+}
+
+
+#finish button {
+    background-color: #1e90ff;
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#finish button:hover {
     background-color: #0066cc;
 }

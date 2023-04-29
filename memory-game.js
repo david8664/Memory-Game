@@ -1,7 +1,9 @@
 const cards = ['bird1.jpg', 'bird2.jpg', 'cat1.jpg', 'cat2.jpg', 'dolphin.jpg', 'dove.jpg', 'elephant1.jpg', 'elephant2.jpg', 'flowers.jpg', 'fox1.jpg', 'fox2.jpg', 'fox3.jpg', 'iceland.jpg', 'kingfisher.jpg', 'lion1.jpg', 'lion2.jpg', 'owl.jpg', 'parrot.jpg', 'sea.jpg', 'tiger.jpg'];
 const players = [{}, {}, {}, {}];
-let turn = 1;
+let turn = [1,];
 let intervalId;
+
+
 
 function main() {
     const startBtn = document.getElementById('start-button');
@@ -9,13 +11,14 @@ function main() {
         const setting = playerSetting();
         if (setting) { // take names
             const amount = setting.amountCards;
+            turn[1] = setting.playerNames.length;
             setting.playerNames.forEach((name, index) => {
-                players[index][index + 1] = name;
+                players[index].nickName = name;
                 players[index].score = 0;
             });
-            document.getElementById('setting-board').remove();
             createCardElement(amount);
             startClock();
+            playerTurnTemplate();
         }
     });
 }
@@ -97,7 +100,9 @@ function onClickCard(event) {
         if (document.getElementsByClassName('card-selected').length === 2) { checkForMatch(); }
     }
     if (document.getElementsByClassName('cards').length === 0) {
-        stopClock(); // end game
+        // end game
+        stopClock();
+        replay();
     }
     return;
 }
@@ -105,9 +110,11 @@ function onClickCard(event) {
 const checkForMatch = () => {
     const selectedCards = document.getElementsByClassName('card-selected');
     const [firstCard, secondCard] = [...selectedCards].map(div => div.children[1]);
-    debugger
+
     if (firstCard.src === secondCard.src) {
         [...selectedCards].forEach(cardDiv => cardDiv.className = 'card-solved');
+        players[turn[0] - 1].score++;
+        playerTurnTemplate()
     }
     else {
         setTimeout(() => {
@@ -117,7 +124,8 @@ const checkForMatch = () => {
             selectedCards[1].querySelector('.hide-card').className = 'back-card';
             [...selectedCards].forEach(cardDiv => cardDiv.className = 'cards');
             playerTurn();
-        }, 1000)
+            playerTurnTemplate()
+        }, 2000)
     }
     return;
 }
@@ -157,13 +165,75 @@ const hideOverlay = () => {
 
 
 const playerTurn = () => {
-    turn = turn > 4 ? 1 : turn++;
+    turn[0] = turn[0] < turn[1] ? turn[0] + 1 : 1;
 }
 
 function playerTurnTemplate() {
-    let text = document.createElement('p');
-    players.forEach((player, index, arr) => text += `${player[index + 1]} : ${player.score}${arr.length === index + 1 ? "" : "\n"}`)
-    return text.replaceAll("undefined : undefined", "");
+    let container = document.createElement('div');
+    container.id = 'turn-player-container';
+
+    players.forEach((player, index, arr) => {
+        let row = document.createElement('p');
+
+        if (index + 1 === turn[0]) {
+            row.style.backgroundColor = 'gold';
+        }
+
+        let text = document.createTextNode(`${player.nickName} : ${player.score}`);
+
+        row.appendChild(text);
+        container.appendChild(row);
+    });
+
+    container.innerHTML = container.innerHTML.replaceAll('undefined : undefined', "");
+    document.body.append(container);
+    return;
 }
+
+function replay() {
+    const button = document.createElement('button');
+    button.id = 'popup-button';
+    button.textContent = 'Play Again';
+    button.onclick = function () {
+        container.remove();
+        allBody.remove();
+        board.innerHTML = `<div id="setting-board">
+        <span id="cards-amount-words">Number of card pairs (3-20): </span><input type="text" id="cards-amount">
+        <br><br>
+        <img id="add-player" src="photos/Add button.jpg" alt="Add" onclick="addPlayer()">
+        <div id="players-board">
+        <div class="player-template"><label>player's name: </label><input type="text"><br></div>
+        </div>
+        <div id="error-message"></div>
+        <button id="start-button">Start</button>
+        </div>`
+        turn = [1,];
+        main();
+    }
+
+    let player = players[0];
+    let winner = player.nickName;
+    for (let i = 1; i < players.length; i++) {
+        if (players[i].score > player.score) {
+            player = players[i];
+            winner = players[i].nickName;
+        }
+    }
+    let winnerSpan = document.createElement('span');
+    winnerSpan.textContent = winner;
+    winnerSpan.style.color = 'gold';
+    let container = document.createElement('div');
+    container.id = 'finish';
+    container.innerHTML = `The winner is `;
+    container.appendChild(winnerSpan);
+    container.innerHTML += `!<br><br>Do you want to play again?<br><br>`;
+    container.appendChild(button);
+    const allBody = document.createElement('div');
+    allBody.appendChild(container);
+    allBody.id = 'all-body';
+    document.body.appendChild(allBody);
+}
+
+
 
 main();
