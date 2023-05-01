@@ -228,17 +228,20 @@ function replay() {
         if (players[i].score > player.score) {
             player = players[i];
             winner = players[i].nickName;
+            point = players[i].score;
         }
     }
-    let winnerSpan = document.createElement('span');
-    winnerSpan.textContent = winner;
-    winnerSpan.style.color = 'gold';
-    winnerSpan.style.fontSize = '50px'
+    pointSpan = document.createElement('span').textContent = score;
+    winnerSpan = document.createElement('span').textContent = winner;
+    pointSpan.className = winnerSpan.className = 'winner';
+
     let container = document.createElement('div');
     container.id = 'finish';
     container.innerHTML = `<h1>The winner is</h1> `;
     container.appendChild(winnerSpan);
-    container.innerHTML += `<h1><br><br>Do you want to play again?</h1><br><br>`;
+    container.innerHTML += `<h1>with</h1>`;
+    container.appendChild(pointSpan);
+    container.innerHTML += `points.<br><br>Would you like to play again?</><br><br>`;
     container.appendChild(button);
     const allBody = document.createElement('div');
     allBody.appendChild(container);
