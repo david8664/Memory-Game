@@ -235,6 +235,8 @@ input {
     display: block;
 }
 
+/* end */
+
 #all-body {
     position: absolute;
     top: 0;
@@ -244,6 +246,9 @@ input {
     background-color: rgba(0, 0, 0, 0.632);
     z-index: 1;
 }
+
+
+
 #finish {
     position: absolute;
     top: 50%;
@@ -256,9 +261,10 @@ input {
     padding: 20px;
     text-align: center;
     border-radius: 5%;
+    /* font-size: larger; */
 }
 
-#finish > button{
+#finish>button {
     margin-top: 10%;
 }
 
@@ -275,4 +281,11 @@ input {
 
 #finish button:hover {
     background-color: #0066cc;
+}
+
+/* sound */
+#mute-button {
+    position: absolute;
+    top: 0;
+    right: 20%;
 }

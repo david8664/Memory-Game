@@ -6,6 +6,7 @@ let intervalId;
 
 
 function main() {
+    document.getElementById('background-music').play();
     const startBtn = document.getElementById('start-button');
     startBtn.addEventListener('click', () => {
         const setting = playerSetting();
@@ -101,6 +102,11 @@ function onClickCard(event) {
     }
     if (document.getElementsByClassName('cards').length === 0) {
         // end game
+        // mute background music
+        const audio = document.getElementById('background-music');
+        audio.muted = true;
+        document.getElementById('mute-button').textContent = 'Unmute';
+
         stopClock();
         replay();
     }
@@ -113,6 +119,8 @@ const checkForMatch = () => {
 
     if (firstCard.src === secondCard.src) {
         [...selectedCards].forEach(cardDiv => cardDiv.className = 'card-solved');
+        document.getElementById('correctAnswer').play();
+
         players[turn[0] - 1].score++;
         playerTurnTemplate()
     }
@@ -195,6 +203,9 @@ function replay() {
     button.id = 'popup-button';
     button.textContent = 'Play Again';
     button.onclick = function () {
+        const audio = document.getElementById('background-music');
+        audio.muted = false;
+        document.getElementById('mute-button').textContent = 'Mute';
         container.remove();
         allBody.remove();
         board.innerHTML = `<div id="setting-board">
@@ -222,11 +233,12 @@ function replay() {
     let winnerSpan = document.createElement('span');
     winnerSpan.textContent = winner;
     winnerSpan.style.color = 'gold';
+    winnerSpan.style.fontSize = '50px'
     let container = document.createElement('div');
     container.id = 'finish';
-    container.innerHTML = `The winner is `;
+    container.innerHTML = `<h1>The winner is</h1> `;
     container.appendChild(winnerSpan);
-    container.innerHTML += `!<br><br>Do you want to play again?<br><br>`;
+    container.innerHTML += `<h1><br><br>Do you want to play again?</h1><br><br>`;
     container.appendChild(button);
     const allBody = document.createElement('div');
     allBody.appendChild(container);
@@ -234,6 +246,16 @@ function replay() {
     document.body.appendChild(allBody);
 }
 
-
+function toggleMute() {
+    const audio = document.getElementById('background-music');
+    const muteButton = document.getElementById('mute-button');
+    if (audio.muted) {
+        audio.muted = false;
+        muteButton.textContent = 'Mute';
+    } else {
+        audio.muted = true;
+        muteButton.textContent = 'Unmute';
+    }
+}
 
 main();

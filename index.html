@@ -9,21 +9,36 @@
 </head>
 
 <body>
-  <h1 id="title">Memory Game By David</h1>
+  <!-- main -->
+  <!-- music -->
+  <!-- background music -->
+  <audio id="background-music" src="sound/backgroundMusic.mp3" loop></audio>
+  <button id="mute-button" onclick="toggleMute()">Mute</button>
+  <!-- correct answer sound -->
+  <audio id="correctAnswer" src="sound//correctAnswer.mp3" ></audio>
+
+  <!-- clock -->
   <div id="clock">0:00</div>
-  <img id="exclamation-mark" src="photos/Exclamation mark.png" alt="game instructions" onclick="showOverlay()"> 
+
+  <!-- body -->
+  <h1 id="title">Memory Game By David</h1>
+
+  <!-- game instructions -->
+  <img id="exclamation-mark" src="photos/Exclamation mark.png" alt="game instructions" onclick="showOverlay()">
   <div id="overlay">
     <div id="popup">
       <h2>Welcome to the Memory Matching Game!</h2>
       <p>At the beginning of the game, the cards will be arranged on the screen with their faces down. <br>
-      You need to match pairs of cards by selecting two cards at a time. You can choose from 3 to 20 pairs of cards
+        You need to match pairs of cards by selecting two cards at a time. You can choose from 3 to 20 pairs of cards
         in the game. <br>
-      If the cards match, they will remain displayed. If they don't, they will be displayed for 2 seconds and then
+        If the cards match, they will remain displayed. If they don't, they will be displayed for 2 seconds and then
         flipped back over. <br>
-      You win the game when you have matched all pairs of cards.</p>
+        You win the game when you have matched all pairs of cards.</p>
       <button onclick="hideOverlay()">OK</button>
     </div>
   </div>
+  
+  <!-- setting-board -->
   <div id="board">
     <div id="setting-board">
       <span id="cards-amount-words">Number of card pairs (3-20): </span><input type="text" id="cards-amount">
@@ -36,6 +51,7 @@
       <button id="start-button">Start</button>
     </div>
   </div>
+
   <script src="memory-game.js"></script>
 </body>
 
